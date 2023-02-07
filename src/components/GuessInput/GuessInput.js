@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 
-function GuessInput() {
+function GuessInput({ allGuess, setAllGuess }) {
   const [text, setText] = useState("");
   const formSubmitHandler = (e) => {
     e.preventDefault();
@@ -10,7 +10,8 @@ function GuessInput() {
       alert("guess should be 5 characters long");
       return;
     }
-    console.log(e.target[0].value);
+    let newItem = { id: crypto.randomUUID(), value: e.target[0].value };
+    setAllGuess([...allGuess, newItem]);
   };
 
   const inputChangeHandler = (e) => {
@@ -26,6 +27,8 @@ function GuessInput() {
           value={text}
           id="guess-input"
           onChange={inputChangeHandler}
+          pattern="[a-zA-Z]{5}"
+          title="5 letter word"
         />
       </form>
     </div>
